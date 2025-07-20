@@ -9,16 +9,17 @@ int main() {
 		cin>>n;
 		vector<int> a(n);
 		map<int, int> b;
-		for (int i = 0; i < n; i++) {
+		for (int i = 0; i < n - 1; i++) {
 			cin>>a[i];
 			b[a[i]] = 1;
 		}
-		sort(a.begin(), a.end());
-		int cnt = 0;
-		for (int i = a[0]; i <= a[a.size() - 1]; i++) {
-			if (b[i] == 0) cnt++;
+//		sort(a.begin(), a.end());
+		for (int i = 1; i <= n; i++) {
+			if (b[i] == 0) {
+				cout<<i;
+				break;
+			}
 		}
-		cout<<cnt;
 		cout<<endl;
 	}
 }

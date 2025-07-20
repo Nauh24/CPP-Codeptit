@@ -8,17 +8,24 @@ int main() {
 		int n;
 		cin>>n;
 		vector<int> a(n);
-		map<int, int> b;
+		set<int> set;
 		for (int i = 0; i < n; i++) {
 			cin>>a[i];
-			b[a[i]] = 1;
+			set.insert(a[i]);
 		}
 		sort(a.begin(), a.end());
-		int cnt = 0;
-		for (int i = a[0]; i <= a[a.size() - 1]; i++) {
-			if (b[i] == 0) cnt++;
+		if (set.size() == 1) cout<<-1;
+		else {
+			int d1 = a[0]; 
+			int d2;
+			for (int i = 1; i < n; i++) {
+				if (a[i] != d1) {
+					d2 = a[i];
+					break;
+				}
+			}
+			cout<<d1<<" "<<d2;
 		}
-		cout<<cnt;
 		cout<<endl;
 	}
 }

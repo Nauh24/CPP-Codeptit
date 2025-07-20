@@ -5,20 +5,18 @@ int main() {
 	int t;
 	cin>>t;
 	while(t--) {
-		int n;
-		cin>>n;
+		int n, k;
+		cin>>n>>k;
 		vector<int> a(n);
-		map<int, int> b;
 		for (int i = 0; i < n; i++) {
 			cin>>a[i];
-			b[a[i]] = 1;
 		}
-		sort(a.begin(), a.end());
-		int cnt = 0;
-		for (int i = a[0]; i <= a[a.size() - 1]; i++) {
-			if (b[i] == 0) cnt++;
+		sort(a.begin(), a.end(), greater<int>());
+		int i = 0;
+		while (k--) {
+			cout<<a[i]<<" ";
+			i++;
 		}
-		cout<<cnt;
 		cout<<endl;
 	}
 }
