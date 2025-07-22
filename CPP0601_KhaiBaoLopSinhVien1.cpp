@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-struct SinhVien {
+class SinhVien {
 	private:
 		string msv, hoTen, lop, ngaySinh;
 		float gpa;

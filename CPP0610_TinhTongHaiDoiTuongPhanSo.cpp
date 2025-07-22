@@ -2,7 +2,7 @@
 using namespace std;
 typedef long long ll;
 
-struct PhanSo {
+class PhanSo {
 private: 
 	ll tu, mau;
 public:
