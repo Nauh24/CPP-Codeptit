@@ -2,104 +2,67 @@
 using namespace std;
 
 class GiangVien {
+	friend istream& operator >> (istream& in, GiangVien &a);
+	friend ostream& operator << (ostream& out, GiangVien a);
 private:
-    string mgv;
-    string name;
-    string khoa;
+	string ma, hoTen, boMon;
 public:
-    static int id;
-
-    GiangVien() {
-        mgv = name = khoa = "";
-    }
-
-    friend istream &operator >> (istream &in, GiangVien &gv);
-    friend ostream &operator << (ostream &out, GiangVien &gv);
-
-    string getName() {
-        return name;
-    }
-
-    string getMaGV()  {
-        return mgv;
-    }
-
-    string getKhoa() {
-        return khoa;
-    }
+	static int dem;
+	bool chuaTuKhoa(string key);
 };
 
-int GiangVien::id = 0;
+int GiangVien::dem = 1;
 
-// Hàm chu?n hóa tên khoa thành ch? cái d?u vi?t hoa
-string chuanHoaKhoa(string &s) {
-    stringstream ss(s);
-    string word, res = "";
-    while (ss >> word) {
-        res += toupper(word[0]);
-    }
-    return res;
+bool GiangVien::chuaTuKhoa(string key) {
+	transform(key.begin(), key.end(), key.begin(), ::tolower);
+	string ten = hoTen;
+	transform(ten.begin(), ten.end(), ten.begin(), ::tolower);
+	return ten.find(key) != string::npos;
 }
 
-// Nh?p gi?ng viên
-istream &operator >> (istream &in, GiangVien &gv) {
-    in.ignore();
-    getline(in, gv.name);
-    getline(in, gv.khoa);
-    gv.khoa = chuanHoaKhoa(gv.khoa);
-
-    GiangVien::id++;
-    gv.mgv = "GV";
-    if (GiangVien::id < 10) gv.mgv += "0";
-    gv.mgv += to_string(GiangVien::id);
-    return in;
+istream& operator >> (istream& in, GiangVien &a) {
+	getline(in, a.hoTen);
+	getline(in, a.boMon);
+	stringstream ss;
+	ss << "GV" << setw(2) << setfill('0') << GiangVien::dem++;
+	a.ma = ss.str();
+	
+	stringstream ss2(a.boMon);
+	string word;
+	string res = "";
+	while (ss2 >> word) {
+		res += toupper(word[0]);
+	}
+	a.boMon = res;
+	return in;
 }
 
-// Xu?t gi?ng viên
-ostream &operator << (ostream &out, GiangVien &gv) {
-    out << gv.mgv << " " << gv.name << " " << gv.khoa << endl;
-    return out;
+ostream& operator << (ostream& out, GiangVien a) {
+	out << a.ma << " " << a.hoTen << " " << a.boMon;
+	return out;
 }
 
-// Ðua chu?i v? ch? thu?ng
-string toLower(string s) {
-    for (char &c : s)
-        c = tolower(c);
-    return s;
-}
-
-// Tìm và in danh sách gi?ng viên ch?a t? khóa
-void timKiem(GiangVien ds[], int n, string tuKhoa) {
-    tuKhoa = toLower(tuKhoa);
-    for (int i = 0; i < n; ++i) {
-        string ten = toLower(ds[i].getName());
-        if (ten.find(tuKhoa) != string::npos) {
-            cout << ds[i];
-        }
-    }
-}
-
-// Hàm main
 int main() {
-    int n;
-    cin >> n;
-    GiangVien ds[100];
-
-    for (int i = 0; i < n; ++i)
-        cin >> ds[i];
-
-    int t;
-    cin >> t;
-    cin.ignore();
-
-    while (t--) {
-        string tuKhoa;
-        getline(cin, tuKhoa);
-        cout << "DANH SACH GIANG VIEN THEO TU KHOA " << tuKhoa << ":" << endl;
-        timKiem(ds, n, tuKhoa);
-    }
-
-    return 0;
+	int n;
+	cin>>n;
+	cin.ignore();
+	GiangVien a[n];
+	for (int i = 0; i < n; i++) {
+		cin >> a[i];
+	}
+	
+	int q;
+	cin >> q;
+	for (int i = 0; i < q; i++) {
+		string key;
+		cin>>key;
+		cout << "DANH SACH GIANG VIEN THEO TU KHOA " << key << ":" << endl;
+		for (int j = 0; j < n; j++) {
+			if (a[j].chuaTuKhoa(key)) {
+				cout << a[j] << endl;
+			}
+		}
+	}
 }
 
 /*
