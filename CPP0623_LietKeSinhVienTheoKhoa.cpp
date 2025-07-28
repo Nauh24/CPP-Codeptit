@@ -7,17 +7,12 @@ class SinhVien {
 private:
 	string ma, ten, lop, email;
 public:
-	string getLop() {
-		return lop;
-	}
-	
-	string getMa() {
-		return ma;
+	string getKhoa() {
+		return lop.substr(1, 2);
 	}
 };
 
 istream& operator >> (istream& in, SinhVien &a) {
-//	in >> ws;
 	in >> a.ma;
 	in.ignore();
 	getline(in, a.ten);
@@ -27,6 +22,7 @@ istream& operator >> (istream& in, SinhVien &a) {
 
 ostream& operator << (ostream& out, SinhVien a) {
 	out << a.ma << " " << a.ten << " " << a.lop << " " << a.email;
+	out << endl;
 	return out;
 }
 
@@ -41,15 +37,16 @@ int main() {
 	int q;
 	cin >> q;
 	for (int i = 0; i < q; i++) {
-		string s;
-		cin >>s;
-		cout << "DANH SACH SINH VIEN LOP " << s << ":" << endl;
+		string y;
+		cin >> y;
+		cout << "DANH SACH SINH VIEN KHOA " << y << ":" << endl;
+		string tmp = y.substr(2, 2);
 		for (int i = 0; i < n; i++) {
-			if (a[i].getLop() == s) 
-				cout << a[i] << endl;
+			if (tmp == a[i].getKhoa()) {
+				cout << a[i];
+			}
 		}
 	}
-	
 }
 
 /*
@@ -71,6 +68,6 @@ Nguyen Trong Tung
 D15CQKT02-B
 sv4@stu.ptit.edu.vn
 1
-D15CQKT02-B
+2015
 */
 

@@ -117,7 +117,6 @@ ostream& operator << (ostream& out, Hd a) {
 	out << mh.getTen() << " " << mh.getDonVi() << " " << mh.getGiaMua() << " " << mh.getGiaBan() << " " << a.soLuong << " " << a.soLuong * mh.getGiaBan() << endl;
 	return out;
 }
-
 int main(){
     KhachHang dskh[25];
     MatHang dsmh[45];

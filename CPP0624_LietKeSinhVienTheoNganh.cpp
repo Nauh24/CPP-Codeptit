@@ -7,17 +7,18 @@ class SinhVien {
 private:
 	string ma, ten, lop, email;
 public:
-	string getLop() {
-		return lop;
-	}
-	
-	string getMa() {
-		return ma;
+	string getNganh() {
+		string tmp = ma.substr(3, 4);
+		if (tmp == "DCKT") return "KE TOAN";
+		else if (tmp == "DCCN" && lop[0] != 'E') return "CONG NGHE THONG TIN";
+		else if (tmp == "DCAT" && lop[0] != 'E') return "AN TOAN THONG TIN";
+		else if (tmp == "DCVT") return "VIEN THONG";
+		else if (tmp == "DCDT") return "DIEN TU";
+		else return "";
 	}
 };
 
 istream& operator >> (istream& in, SinhVien &a) {
-//	in >> ws;
 	in >> a.ma;
 	in.ignore();
 	getline(in, a.ten);
@@ -27,6 +28,7 @@ istream& operator >> (istream& in, SinhVien &a) {
 
 ostream& operator << (ostream& out, SinhVien a) {
 	out << a.ma << " " << a.ten << " " << a.lop << " " << a.email;
+	out << endl;
 	return out;
 }
 
@@ -40,16 +42,20 @@ int main() {
 	
 	int q;
 	cin >> q;
+	
 	for (int i = 0; i < q; i++) {
-		string s;
-		cin >>s;
-		cout << "DANH SACH SINH VIEN LOP " << s << ":" << endl;
+		cin >> ws;
+		string nganh;
+		getline(cin, nganh);
+		for (char &c : nganh) c = toupper(c);
+		cout << "DANH SACH SINH VIEN NGANH " << nganh << ":" << endl;
 		for (int i = 0; i < n; i++) {
-			if (a[i].getLop() == s) 
-				cout << a[i] << endl;
+//			cout << a[i].getNganh()<< endl;
+			if (nganh == a[i].getNganh()) {
+				cout << a[i];
+			}
 		}
 	}
-	
 }
 
 /*
@@ -71,6 +77,6 @@ Nguyen Trong Tung
 D15CQKT02-B
 sv4@stu.ptit.edu.vn
 1
-D15CQKT02-B
+Ke toan
 */
 
