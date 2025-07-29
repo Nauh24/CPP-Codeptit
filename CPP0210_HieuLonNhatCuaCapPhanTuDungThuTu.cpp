@@ -11,15 +11,15 @@ int main() {
 		for (int i = 0; i < n; i++) {
 			cin>>a[i];
 		}
-		int min = a[0];
+		int min_val = a[0];
 		int max_dis = INT_MIN;
 		for (int i = 1; i < n; i++) {
-			if (a[i] < a[i - 1]) {
-				min = a[i];
+			if (a[i] > min_val) {
+				max_dis = max(max_dis, a[i] - min_val);
 			}
-			max_dis = max(max_dis, a[i] - min);
+			min_val = min(min_val, a[i]);
 		} 
-		if (max_dis == 0) cout<<-1;
+		if (max_dis == INT_MIN) cout<<-1;
 		else cout<<max_dis;
 		cout<<endl;
 	}
